@@ -1,4 +1,4 @@
-# RepFuN - a RepLAB-based puzzle solver
+# RepFuN - a RepLAB-based PuZzLe solver
 
 RepFuN demonstrates how some features of the RepLAB library can be used to solve combination puzzles.
 
