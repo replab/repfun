@@ -1,0 +1,93 @@
+function words2 = simplifySequence1(d, words, moves)
+% This function performs a simple simplification of a sequence of moves by
+% concatenating successive moves performed along the same axis
+%
+% Note: Here we assume that the three possible angle of rotations are
+% encoded as (-1, 3), (1, 2), (1 3) respectively
+%
+% Args:
+%     d (integer) : dimension
+%     words (1,\*) integer : sequence of generator indices (negative for
+%         inverses)
+%     moves (cell array) : list of moves corresponding to each e
+
+words2 = [];
+i = 1;
+i2 = 1;
+while i <= length(words)
+    axis = moves{abs(words(i))}(1);
+    j = i;
+    while (j+1 <= length(words)) && (moves{abs(words(j+1))}(1) == axis)
+        j = j + 1;
+    end
+    
+    if j > i
+        % We have several successive moves along the same axis
+        
+        % We check what is the most compact way of encoding this rotation
+        turned = zeros(1,d);
+        for k = i:j
+            isTurning = str2num(moves{abs(words(k))}(2:end-1).').';
+            angle = sign(words(k))*str2num(moves{abs(words(k))}(end));
+            turned(isTurning) = mod(turned(isTurning) + angle, 4);
+        end
+        
+        % Evaluate the number of operations needed
+        nbMovesNeeded = length(unique(turned(turned~=0)));
+        
+        if nbMovesNeeded < j-i+1
+            % We can simplify the move so we do it
+            if any(turned == 1)
+                move = [axis, num2str(find(turned==1).').', '3'];
+                moveNb = 1;
+                while ~isequal(move, moves{moveNb}) && (moveNb+1 <= length(moves))
+                    moveNb = moveNb+1;
+                end
+                if isequal(move, moves{moveNb})
+                    words2(i2) = -moveNb;
+                    i2 = i2 + 1;
+                else
+                    error(['Move ', move, ' not found in the list of generators']);
+                end
+            end
+            if any(turned == 2)
+                move = [axis, num2str(find(turned==2).').', '2'];
+                moveNb = 1;
+                while ~isequal(move, moves{moveNb}) && (moveNb+1 <= length(moves))
+                    moveNb = moveNb+1;
+                end
+                if isequal(move, moves{moveNb})
+                    words2(i2) = moveNb;
+                    i2 = i2 + 1;
+                else
+                    error(['Move ', move, ' not found in the list of generators']);
+                end
+            end
+            if any(turned == 3)
+                move = [axis, num2str(find(turned==3).').', '3'];
+                moveNb = 1;
+                while ~isequal(move, moves{moveNb}) && (moveNb+1 <= length(moves))
+                    moveNb = moveNb+1;
+                end
+                if isequal(move, moves{moveNb})
+                    words2(i2) = moveNb;
+                    i2 = i2 + 1;
+                else
+                    error(['Move ', move, ' not found in the list of generators']);
+                end
+            end            
+        else
+            % Nothing to simplify, we keep the same moves
+            words2(i2+[0:j-i]) = words(i:j);
+            i2 = i2 + j-i+1;
+        end
+    else
+        % Nothing to modify, we keep the same move
+        words2(i2) = words(i);
+        i2 = i2 + 1;
+    end
+    
+    i = j+1;
+end
+
+
