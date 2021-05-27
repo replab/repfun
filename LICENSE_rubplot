@@ -1,4 +1,4 @@
-Files rubplot and rubrot were modified from Joren Heit's "Rubik's Cube Simulator and Solver"
+The file +repfun/+rubik/plot.m was modified from Joren Heit's "Rubik's Cube Simulator and Solver"
 
 Copyright (c) 2011, Joren Heit
 All rights reserved.
