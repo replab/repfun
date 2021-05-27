@@ -1,6 +1,6 @@
 # RepFuN - a RepLAB-based PuZzLe solver
 
-RepFuN demonstrates how some features of the RepLAB library can be used to solve combination puzzles.
+RepFuN demonstrates how the RepLAB library can be used to solve some combination puzzles.
 
 ![Rubik2](https://live.staticflickr.com/65535/51206212966_3ae6a9a3f7_o.gif "Rubik2")
 
