@@ -96,7 +96,7 @@ while l >= 3
 end
 pbar.finish;
 
-disp(num2str(words));
+%disp(num2str(words));
 
 repfun.globals.verbose(previousVerboseLevel);
 

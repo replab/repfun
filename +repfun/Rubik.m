@@ -301,8 +301,6 @@ classdef Rubik
         % This function allows to solve the Rubik's cube in an interactive
         % manner
         
-            repfun.rubik.isSolved(repfun.rubik.applySequence(this.state, this.generators, this.sequence))
-        
             title = 'Use the following commands to solve the cube one step at a time:';
             items0 = {{'M', 'Display the menu'}, {'N', 'Go to next state'}, {'P', 'Go to previous state'}, ...
                 {'R', 'Rotate'}, {'B', 'Toggle between above and below view'}, ...
