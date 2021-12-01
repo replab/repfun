@@ -1,4 +1,4 @@
-function drawnow
+function drawNow
 % Refreshes the plot after drawing
 
     axis equal;

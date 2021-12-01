@@ -15,7 +15,7 @@ repfun.orings.drawCircle(state, 2, 0, [0 0]);
 repfun.orings.drawCircle(state, 3);
 repfun.orings.drawCircle(state, 4, 0, [0 0]);
 repfun.orings.drawCircle(state, 5);
-repfun.orings.drawnow;
+repfun.orings.drawNow;
 
 if (nargin < 2) || isempty(sequence)
     return;
@@ -155,7 +155,7 @@ function [rotating, finished] = applyRotation(state, rotating, rotMoves, newlyRo
             repfun.orings.drawCircle(state, i, angles(i), [displayLeft, displayRight]);
         end
     end
-    repfun.orings.drawnow;
+    repfun.orings.drawNow;
 end
 
 
@@ -255,7 +255,7 @@ function state = rotateOneByOne(state, move, generators, timeFunction)
             
             repfun.orings.drawCircle(state, i, angles(i), [displayLeft, displayRight]);
         end
-        repfun.orings.drawnow;
+        repfun.orings.drawNow;
         
         deltaT = timeFunction()-t0;
     end
