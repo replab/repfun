@@ -54,7 +54,7 @@ function writeMoves(movesSequence, currentStep)
     return;
     
     function move = latexify(move)
-        levels = [num2str(move(2:end-1).'), ','*ones(length(move)-2,1)].';
+        levels = [num2str(move(2:end-1).'), char(','*ones(length(move)-2,1))].';
         levels = levels(:).';
         levels = levels(1:end-1);
         if str2num(move(end)) == 1
