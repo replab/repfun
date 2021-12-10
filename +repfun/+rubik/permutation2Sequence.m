@@ -35,13 +35,14 @@ function [sequence, besti] = permutation2Sequence(d, chain, moves, coset, global
                 words{i} = chain.word(perm);
                 wordsi{i} = chain.word(repfun.util.inversePerm(perm));
             else
-                perm = coset.representative(globalRotations(i,:));
-                words{i} = chain.wordLeftCoset(perm, coset.group.chain);
+                perm = coset.representative
+                perm = perm(globalRotations(i,:));
+                words{i} = chain.wordLeftCoset(perm, coset.subgroup.chain);
                 wordsi{i} = -fliplr(words{i});
 %                 perm = coset.representative(globalRotations(i,:));
-%                 newCoset = replab.LeftCoset(coset.group, perm, coset.parent);
+%                 newCoset = replab.LeftCoset(coset.subgroup, perm, coset.parent);
 %                 words{i} = chain.wordForLeftCoset(newCoset);
-%                 newCoset = replab.LeftCoset(coset.group, repfun.util.inversePerm(perm), coset.parent);
+%                 newCoset = replab.LeftCoset(coset.subgroup, repfun.util.inversePerm(perm), coset.parent);
 %                 wordsi{i} = chain.wordForLeftCoset(newCoset);
             end
 
@@ -64,19 +65,21 @@ function [sequence, besti] = permutation2Sequence(d, chain, moves, coset, global
                 words{i} = chain.word(perm);
                 wordsi{i} = chain.word(repfun.util.inversePerm(perm));
             else
-                perm = coset.representative(globalRotations(i,:));
-                words{i} = chain.wordLeftCoset(perm, coset.group.chain);
+                perm = coset.representative;
+                perm = perm(globalRotations(i,:));
+                words{i} = chain.wordLeftCoset(perm, coset.subgroup.chain);
                 wordsi{i} = -fliplr(words{i});
                 
-%                 newCoset = replab.LeftCoset(coset.group, perm, coset.parent);
+%                 newCoset = replab.LeftCoset(coset.subgroup, perm, coset.parent);
 %                 words{i} = chain.wordForLeftCoset(newCoset);
-%                 newCoset = replab.LeftCoset(coset.group, repfun.util.inversePerm(perm), coset.parent);
+%                 newCoset = replab.LeftCoset(coset.subgroup, repfun.util.inversePerm(perm), coset.parent);
 %                 wordsi{i} = chain.wordForLeftCoset(newCoset);
 %
 %                 global state generators
 % 
-%                 perm = coset.representative(globalRotations(i,:));
-%                 newCoset = replab.LeftCoset(coset.group, perm, coset.parent);
+%                 perm = coset.representative;
+%                 perm = perm(globalRotations(i,:));
+%                 newCoset = replab.LeftCoset(coset.subgroup, perm, coset.parent);
 %                 words{i} = chain.wordCoset(newCoset);
 %                 repfun.rubik.isSolved(repfun.rubik.applySequence(state, generators, words{i}))
 %                 
@@ -85,7 +88,7 @@ function [sequence, besti] = permutation2Sequence(d, chain, moves, coset, global
 %                 repfun.rubik.applySequence(1:length(state), generators, (a))-b
 % 
 %                 iperm = repfun.util.inversePerm(perm);
-%                 newCoset = replab.RightCoset(coset.group, iperm, coset.parent);
+%                 newCoset = replab.RightCoset(coset.subgroup, iperm, coset.parent);
 %                 wordsi{i} = chain.wordCoset(newCoset);
 %                 repfun.rubik.isSolved(repfun.rubik.applySequence(state, generators, -fliplr(wordsi{i})))
 %                 

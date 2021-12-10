@@ -120,7 +120,7 @@ classdef OlympicRings
             end
             
             tic;
-            this.sequence = this.chain.wordLeftCoset(this.cosetPermutation.representative, this.cosetPermutation.group.chain);
+            this.sequence = this.chain.wordLeftCoset(this.cosetPermutation.representative, this.cosetPermutation.subgroup.chain);
         end
         
         function this = findCoset(this)

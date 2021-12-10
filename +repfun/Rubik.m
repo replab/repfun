@@ -124,7 +124,7 @@ classdef Rubik
                 end
             end
             G24 = replab.PermutationGroup.of(cube.generators{selGlobal});
-            cube.globalRotations = cat(1, G24.elements.toCell{:});
+            cube.globalRotations = cat(1, G24.elements{:});
             
             % ... and extract the corresponding words
             tmp = replab.bsgs.ChainWithWords(G24, cube.generators(selGlobal));

@@ -157,7 +157,7 @@ while true
                     disp('Number of distinct cube configurations:');
                     disp(['    ', nbConfTxt{d}]);
                 end
-                orderTxt = num2str(cubes{d}.group.order).';
+                orderTxt = num2str(cubes{d}.chain.order).';
                 orderTxt = strrep(orderTxt(:).', ' ', '');
                 disp('The group order is:')
                 disp(['    ', orderTxt]);
