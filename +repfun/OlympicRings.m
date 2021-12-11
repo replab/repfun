@@ -39,7 +39,7 @@ classdef OlympicRings
             %base = fliplr(1:157);
             base = [1:78; fliplr(80:157)];
             base = [base(:)', 79];
-            specialChain = replab.bsgs.Chain.make(157, rings.generators(1:5), base);
+            specialChain = replab.bsgs.Chain.make(157, rings.generators(1:5), base, vpi('58647843971320721409607903577565776255770915811522296813662399778772412311348317752738888006293661394838528991623327693618510094402304472790645386496087794701218153077181480992696881923737611858489550243880586714047723342811245289492866662400000000000000000000000000000000000000'));
             specialGroup = replab.PermutationGroup(157, rings.generators(1:5), 'chain', specialChain);
             rings.group = specialGroup;
             

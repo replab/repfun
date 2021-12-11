@@ -40,6 +40,11 @@ classdef Rubik
         
             replab_init;
             
+            assert(d >= 1);
+            
+            knownOrders = {vpi('24'), vpi('88179840'), vpi('1038048078587756544000'), vpi('16972688908618238933770849245964147960401887232000000000'), ...
+                vpi('61983270549287025099907672756192406062034134561301691171474691309654209724416000000000000000')};
+            
             % Dimension
             cube.d = d;
             
@@ -55,13 +60,14 @@ classdef Rubik
             tic;
             group = replab.PermutationGroup.of(cube.generators{selMinGens});
             if repfun.globals.verbose >= 1
-                disp(['Group constructed, (', num2str(toc), 's)']);
-                disp(' ')
+                disp(['Group constructed (', num2str(toc), 's)']);
             end
 
             tic;
             % Create the chain with words...
-            if (d >= 3) && (d <= 6)
+            if d <= 2
+                cube.chain = replab.bsgs.ChainWithWords(group, cube.generators);
+            else
                 % For these dimensions, we construct a slightly optimized
                 % chain (to get smaller words)
                 switch d
@@ -73,11 +79,17 @@ classdef Rubik
                         order = [1 2 4 3 6 5 7];
                     case 6
                         order = [1 2 3 6 8 7 4 5 9];
+                    otherwise
+                        order = 1:length(blocks);
                 end
                 blocks = group.orbits.blocks;
                 assert(length(order) == length(blocks));
                 base = cat(2, blocks{order});
-                specialChain = replab.bsgs.Chain.make(6*d^2, cube.generators(selMinGens), base);
+                if d <= length(knownOrders)
+                    specialChain = replab.bsgs.Chain.make(6*d^2, cube.generators(selMinGens), base, knownOrders{d});
+                else
+                    specialChain = replab.bsgs.Chain.make(6*d^2, cube.generators(selMinGens), base);
+                end
                 
 %                 % The following code section somehow makes the
 %                 % construction of the chain with words faster, but the
@@ -98,11 +110,8 @@ classdef Rubik
 
                 specialGroup = replab.PermutationGroup(6*d^2, cube.generators(selMinGens), 'chain', specialChain);
                 cube.chain = replab.bsgs.ChainWithWords(specialGroup, cube.generators);
-                cube.group = cube.chain.group;
-            else
-                cube.chain = replab.bsgs.ChainWithWords(group, cube.generators);
-                cube.group = cube.chain.group;
             end
+            cube.group = cube.chain.group;
             if repfun.globals.verbose >= 1
                 disp(['Chain with words constructed (', num2str(toc), 's)']);
                 tic;
