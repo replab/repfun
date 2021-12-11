@@ -34,25 +34,18 @@ classdef OlympicRings
             % Describe possible moves of the rings (with inverses)
             rings.generators = repfun.orings.generators;
             
-            % Create the permutation group
             tic;
-            rings.group = replab.PermutationGroup.of(rings.generators{1:5,1});
-            if repfun.globals.verbose >= 1
-                disp(['Group constructed, (', num2str(toc), 's)']);
-                disp(' ')
-            end
-
-            tic;
-            % Create the chain with words...
+            % Create the group and chain with words...
             %base = fliplr(1:157);
             base = [1:78; fliplr(80:157)];
             base = [base(:)', 79];
             specialChain = replab.bsgs.Chain.make(157, rings.generators(1:5), base);
             specialGroup = replab.PermutationGroup(157, rings.generators(1:5), 'chain', specialChain);
+            rings.group = specialGroup;
             
             rings.chain = replab.bsgs.ChainWithWords(specialGroup, rings.generators(1:5*15));
             if repfun.globals.verbose >= 1
-                disp(['Chain with words constructed (', num2str(toc), 's)']);
+                disp(['Group and chain with words constructed (', num2str(toc), 's)']);
                 tic;
             end
             

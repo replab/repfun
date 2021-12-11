@@ -53,7 +53,7 @@ classdef Rubik
 
             % Create the permutation group
             tic;
-            cube.group = replab.PermutationGroup.of(cube.generators{selMinGens});
+            group = replab.PermutationGroup.of(cube.generators{selMinGens});
             if repfun.globals.verbose >= 1
                 disp(['Group constructed, (', num2str(toc), 's)']);
                 disp(' ')
@@ -74,7 +74,7 @@ classdef Rubik
                     case 6
                         order = [1 2 3 6 8 7 4 5 9];
                 end
-                blocks = cube.group.orbits.blocks;
+                blocks = group.orbits.blocks;
                 assert(length(order) == length(blocks));
                 base = cat(2, blocks{order});
                 specialChain = replab.bsgs.Chain.make(6*d^2, cube.generators(selMinGens), base);
@@ -98,8 +98,10 @@ classdef Rubik
 
                 specialGroup = replab.PermutationGroup(6*d^2, cube.generators(selMinGens), 'chain', specialChain);
                 cube.chain = replab.bsgs.ChainWithWords(specialGroup, cube.generators);
+                cube.group = cube.chain.group;
             else
-                cube.chain = replab.bsgs.ChainWithWords(cube.group, cube.generators);
+                cube.chain = replab.bsgs.ChainWithWords(group, cube.generators);
+                cube.group = cube.chain.group;
             end
             if repfun.globals.verbose >= 1
                 disp(['Chain with words constructed (', num2str(toc), 's)']);
