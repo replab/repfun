@@ -1,1 +1,15 @@
+##---------------------------------------------------
+# MATLAB default .gitignore
+##---------------------------------------------------
+
+# Editor autosave files
+*~
+*.asv
+# Saved matlab data
 *.mat
+
+# Compiled MEX binaries (all platforms)
+*.mex*
+# Binary objects
+*.o
+
